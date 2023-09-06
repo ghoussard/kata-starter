@@ -2,7 +2,9 @@
 
 namespace KataStarter\Test;
 
+use KataStarter\Cardinal;
 use KataStarter\OrderMarsRoverService;
+use KataStarter\Position;
 use PHPUnit\Framework\TestCase;
 
 class OrderMarsRoverServiceTest extends TestCase
@@ -14,8 +16,8 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order('1 2 N', '');
+        $sut->order(new Position(1, 2, Cardinal::north()), '');
 
-        $this->assertEquals('1 2 N', $sut->currentPosition());
+        $this->assertEquals(new Position(1, 2, Cardinal::north()), $sut->currentPosition());
     }
 }
