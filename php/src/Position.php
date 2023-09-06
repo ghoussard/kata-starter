@@ -10,9 +10,21 @@ class Position
 
     public function move(): Position
     {
+        $x = match ($this->direction) {
+            Cardinal::East => $this->x + 1,
+            Cardinal::West => $this->x - 1,
+            default => $this->x,
+        };
+
+        $y = match ($this->direction) {
+            Cardinal::North => $this->y + 1,
+            Cardinal::South => $this->y - 1,
+            default => $this->y,
+        };
+
         return new self(
-            $this->x,
-            $this->y + 1,
+            $x,
+            $y,
             $this->direction
         );
     }

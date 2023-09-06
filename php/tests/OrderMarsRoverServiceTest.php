@@ -25,15 +25,15 @@ class OrderMarsRoverServiceTest extends TestCase
 
     /**
      * @test
+     * @dataProvider moveForwardProvider
      */
-    public function the_rover_moves_forward(): void
+    public function the_rover_moves_forward(Position $originPosition, Position $destinationPosition): void
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, Cardinal::North), [Instruction::Move]);
+        $sut->order($originPosition, [Instruction::Move]);
 
-        $expected = new Position(1, 3, Cardinal::North);
-        $this->assertEquals($expected, $sut->currentPosition());
+        $this->assertEquals($destinationPosition, $sut->currentPosition());
     }
 
     /**
@@ -50,16 +50,6 @@ class OrderMarsRoverServiceTest extends TestCase
         $this->assertEquals($expected, $sut->currentPosition());
     }
 
-    public static function turnLeftProvider()
-    {
-        return [
-            'from north' => [Cardinal::North, Cardinal::West],
-            'from west' => [Cardinal::West, Cardinal::South],
-            'from south' => [Cardinal::South, Cardinal::East],
-            'from east' => [Cardinal::East, Cardinal::North],
-        ];
-    }
-
     /**
      * @test
      * @dataProvider turnRightProvider
@@ -72,6 +62,26 @@ class OrderMarsRoverServiceTest extends TestCase
 
         $expected = new Position(1, 2, $destination);
         $this->assertEquals($expected, $sut->currentPosition());
+    }
+
+    public static function moveForwardProvider()
+    {
+        return [
+            [new Position(3, 3, Cardinal::North), new Position(3, 4, Cardinal::North)],
+            [new Position(3, 3, Cardinal::West), new Position(2, 3, Cardinal::West)],
+            [new Position(3, 3, Cardinal::South), new Position(3, 2, Cardinal::South)],
+            [new Position(3, 3, Cardinal::East), new Position(4, 3, Cardinal::East)],
+        ];
+    }
+
+    public static function turnLeftProvider()
+    {
+        return [
+            'from north' => [Cardinal::North, Cardinal::West],
+            'from west' => [Cardinal::West, Cardinal::South],
+            'from south' => [Cardinal::South, Cardinal::East],
+            'from east' => [Cardinal::East, Cardinal::North],
+        ];
     }
 
     public static function turnRightProvider()
