@@ -17,9 +17,9 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, Cardinal::north()), []);
+        $sut->order(new Position(1, 2, Cardinal::North), []);
 
-        $expected = new Position(1, 2, Cardinal::north());
+        $expected = new Position(1, 2, Cardinal::North);
         $this->assertEquals($expected, $sut->currentPosition());
     }
 
@@ -30,9 +30,9 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, Cardinal::north()), [Instruction::move()]);
+        $sut->order(new Position(1, 2, Cardinal::North), [Instruction::Move]);
 
-        $expected = new Position(1, 3, Cardinal::north());
+        $expected = new Position(1, 3, Cardinal::North);
         $this->assertEquals($expected, $sut->currentPosition());
     }
 }

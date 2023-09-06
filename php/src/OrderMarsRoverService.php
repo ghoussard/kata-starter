@@ -14,7 +14,7 @@ class OrderMarsRoverService
         $this->position = $initialPosition;
 
         foreach ($instructions as $instruction) {
-            if ($instruction->isMove()) {
+            if ($instruction === Instruction::Move) {
                 $this->position = $this->position->move();
             }
         }
