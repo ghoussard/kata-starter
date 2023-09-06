@@ -4,6 +4,7 @@ namespace KataStarter\Test;
 
 use KataStarter\Cardinal;
 use KataStarter\Instruction;
+use KataStarter\Order;
 use KataStarter\OrderMarsRoverService;
 use KataStarter\Position;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +18,7 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, Cardinal::North), []);
+        $sut->order(new Order(new Position(1, 2, Cardinal::North), []));
 
         $expected = new Position(1, 2, Cardinal::North);
         $this->assertEquals($expected, $sut->currentPosition());
@@ -31,7 +32,7 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order($originPosition, [Instruction::Move]);
+        $sut->order(new Order($originPosition, [Instruction::Move]));
 
         $this->assertEquals($destinationPosition, $sut->currentPosition());
     }
@@ -44,7 +45,7 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, $origin), [Instruction::Left]);
+        $sut->order(new Order(new Position(1, 2, $origin), [Instruction::Left]));
 
         $expected = new Position(1, 2, $destination);
         $this->assertEquals($expected, $sut->currentPosition());
@@ -57,7 +58,7 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(3, 3, Cardinal::East), [
+        $sut->order(new Order(new Position(3, 3, Cardinal::East), [
             Instruction::Move,
             Instruction::Move,
             Instruction::Right,
@@ -68,7 +69,7 @@ class OrderMarsRoverServiceTest extends TestCase
             Instruction::Right,
             Instruction::Right,
             Instruction::Move,
-        ]);
+        ]));
 
         $expected = new Position(5, 1, Cardinal::East);
         $this->assertEquals($expected, $sut->currentPosition());
@@ -82,7 +83,7 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, $origin), [Instruction::Right]);
+        $sut->order(new Order(new Position(1, 2, $origin), [Instruction::Right]));
 
         $expected = new Position(1, 2, $destination);
         $this->assertEquals($expected, $sut->currentPosition());

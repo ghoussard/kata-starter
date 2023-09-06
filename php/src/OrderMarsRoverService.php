@@ -4,30 +4,31 @@ namespace KataStarter;
 
 class OrderMarsRoverService
 {
-    private Position $position;
+    /** @var Position[] */
+    private array $positions;
 
     /**
      * @param Instruction[] $instructions
      */
-    public function order(Position $initialPosition, array $instructions): void
+    public function order(Order $order): void
     {
-        $this->position = $initialPosition;
+        $this->positions[0] = $order->initialPosition;
 
-        foreach ($instructions as $instruction) {
+        foreach ($order->instructions as $instruction) {
             if ($instruction === Instruction::Move) {
-                $this->position = $this->position->move();
+                $this->positions[0] = $this->positions[0]->move();
             }
             elseif ($instruction === Instruction::Left) {
-                $this->position = $this->position->left();
+                $this->positions[0]= $this->positions[0]->left();
             }
             elseif ($instruction === Instruction::Right) {
-                $this->position = $this->position->right();
+                $this->positions[0]= $this->positions[0]->right();
             }
         }
     }
 
     public function currentPosition(): Position
     {
-        return $this->position;
+        return $this->positions[0];
     }
 }
