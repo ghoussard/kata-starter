@@ -18,6 +18,20 @@ class OrderMarsRoverServiceTest extends TestCase
 
         $sut->order(new Position(1, 2, Cardinal::north()), '');
 
-        $this->assertEquals(new Position(1, 2, Cardinal::north()), $sut->currentPosition());
+        $expected = new Position(1, 2, Cardinal::north());
+        $this->assertEquals($expected, $sut->currentPosition());
+    }
+
+    /**
+     * @test
+     */
+    public function the_rover_moves_forward(): void
+    {
+        $sut = new OrderMarsRoverService();
+
+        $sut->order(new Position(1, 2, Cardinal::north()), 'M');
+
+        $expected = new Position(1, 3, Cardinal::north());
+        $this->assertEquals($expected, $sut->currentPosition());
     }
 }
