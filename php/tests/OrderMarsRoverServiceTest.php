@@ -52,6 +52,30 @@ class OrderMarsRoverServiceTest extends TestCase
 
     /**
      * @test
+     */
+    public function the_rover_follows_several_instructions(): void
+    {
+        $sut = new OrderMarsRoverService();
+
+        $sut->order(new Position(3, 3, Cardinal::East), [
+            Instruction::Move,
+            Instruction::Move,
+            Instruction::Right,
+            Instruction::Move,
+            Instruction::Move,
+            Instruction::Right,
+            Instruction::Move,
+            Instruction::Right,
+            Instruction::Right,
+            Instruction::Move,
+        ]);
+
+        $expected = new Position(5, 1, Cardinal::East);
+        $this->assertEquals($expected, $sut->currentPosition());
+    }
+
+    /**
+     * @test
      * @dataProvider turnRightProvider
      */
     public function the_rover_turns_right(Cardinal $origin, Cardinal $destination): void
