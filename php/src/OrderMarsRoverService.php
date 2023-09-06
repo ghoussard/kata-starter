@@ -7,31 +7,32 @@ class OrderMarsRoverService
     /** @var Position[] */
     private array $positions;
 
-    /**
-     * @param Instruction[] $instructions
-     */
     public function order(Order ...$orders): void
     {
         foreach ($orders as $index => $order) {
-            $this->positions[$index] = $order->initialPosition;
-
-            foreach ($order->instructions as $instruction) {
-                if ($instruction === Instruction::Move) {
-                    $this->positions[$index] = $this->positions[$index]->move();
-                }
-                elseif ($instruction === Instruction::Left) {
-                    $this->positions[$index]= $this->positions[$index]->left();
-                }
-                elseif ($instruction === Instruction::Right) {
-                    $this->positions[$index]= $this->positions[$index]->right();
-                }
-            }
+            $position = $this->followInstructionsFromPosition($order->instructions, $order->initialPosition);
+            $this->positions[$index] = $position;
         }
-
     }
 
     public function currentPositions(): array
     {
         return $this->positions;
+    }
+
+    /**
+     * @param Instruction[] $instructions
+     */
+    private function followInstructionsFromPosition(array $instructions, Position $position): Position
+    {
+        foreach ($instructions as $instruction) {
+            match ($instruction) {
+                Instruction::Move => $position = $position->move(),
+                Instruction::Left => $position = $position->left(),
+                Instruction::Right => $position = $position->right(),
+            };
+        }
+
+        return $position;
     }
 }
