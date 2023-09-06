@@ -3,6 +3,7 @@
 namespace KataStarter\Test;
 
 use KataStarter\Cardinal;
+use KataStarter\Instruction;
 use KataStarter\OrderMarsRoverService;
 use KataStarter\Position;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +17,7 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, Cardinal::north()), '');
+        $sut->order(new Position(1, 2, Cardinal::north()), []);
 
         $expected = new Position(1, 2, Cardinal::north());
         $this->assertEquals($expected, $sut->currentPosition());
@@ -29,7 +30,7 @@ class OrderMarsRoverServiceTest extends TestCase
     {
         $sut = new OrderMarsRoverService();
 
-        $sut->order(new Position(1, 2, Cardinal::north()), 'M');
+        $sut->order(new Position(1, 2, Cardinal::north()), [Instruction::move()]);
 
         $expected = new Position(1, 3, Cardinal::north());
         $this->assertEquals($expected, $sut->currentPosition());

@@ -6,15 +6,16 @@ class OrderMarsRoverService
 {
     private Position $position;
 
-    public function order(Position $initialPosition, string $instructions): void
+    /**
+     * @param Instruction[] $instructions
+     */
+    public function order(Position $initialPosition, array $instructions): void
     {
         $this->position = $initialPosition;
 
-        foreach (str_split($instructions) as $instruction) {
-            switch ($instruction) {
-                case 'M':
-                    $this->position = $this->position->move();
-                    break;
+        foreach ($instructions as $instruction) {
+            if ($instruction->isMove()) {
+                $this->position = $this->position->move();
             }
         }
     }
