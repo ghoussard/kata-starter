@@ -10,25 +10,28 @@ class OrderMarsRoverService
     /**
      * @param Instruction[] $instructions
      */
-    public function order(Order $order): void
+    public function order(Order ...$orders): void
     {
-        $this->positions[0] = $order->initialPosition;
+        foreach ($orders as $index => $order) {
+            $this->positions[$index] = $order->initialPosition;
 
-        foreach ($order->instructions as $instruction) {
-            if ($instruction === Instruction::Move) {
-                $this->positions[0] = $this->positions[0]->move();
-            }
-            elseif ($instruction === Instruction::Left) {
-                $this->positions[0]= $this->positions[0]->left();
-            }
-            elseif ($instruction === Instruction::Right) {
-                $this->positions[0]= $this->positions[0]->right();
+            foreach ($order->instructions as $instruction) {
+                if ($instruction === Instruction::Move) {
+                    $this->positions[$index] = $this->positions[$index]->move();
+                }
+                elseif ($instruction === Instruction::Left) {
+                    $this->positions[$index]= $this->positions[$index]->left();
+                }
+                elseif ($instruction === Instruction::Right) {
+                    $this->positions[$index]= $this->positions[$index]->right();
+                }
             }
         }
+
     }
 
-    public function currentPosition(): Position
+    public function currentPositions(): array
     {
-        return $this->positions[0];
+        return $this->positions;
     }
 }
