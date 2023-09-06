@@ -38,7 +38,7 @@ class OrderMarsRoverServiceTest extends TestCase
 
     /**
      * @test
-     * @dataProvider turlLeftProvider
+     * @dataProvider turnLeftProvider
      */
     public function the_rover_turns_left(Cardinal $origin, Cardinal $destination): void
     {
@@ -50,13 +50,37 @@ class OrderMarsRoverServiceTest extends TestCase
         $this->assertEquals($expected, $sut->currentPosition());
     }
 
-    public static function turlLeftProvider()
+    public static function turnLeftProvider()
     {
         return [
-            [Cardinal::North, Cardinal::West],
-            [Cardinal::West, Cardinal::South],
-            [Cardinal::South, Cardinal::East],
-            [Cardinal::East, Cardinal::North],
+            'from north' => [Cardinal::North, Cardinal::West],
+            'from west' => [Cardinal::West, Cardinal::South],
+            'from south' => [Cardinal::South, Cardinal::East],
+            'from east' => [Cardinal::East, Cardinal::North],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider turnRightProvider
+     */
+    public function the_rover_turns_right(Cardinal $origin, Cardinal $destination): void
+    {
+        $sut = new OrderMarsRoverService();
+
+        $sut->order(new Position(1, 2, $origin), [Instruction::Right]);
+
+        $expected = new Position(1, 2, $destination);
+        $this->assertEquals($expected, $sut->currentPosition());
+    }
+
+    public static function turnRightProvider()
+    {
+        return [
+            'from north' => [Cardinal::North, Cardinal::East],
+            'from east' => [Cardinal::East, Cardinal::South],
+            'from south' => [Cardinal::South, Cardinal::West],
+            'from west' => [Cardinal::West, Cardinal::North],
         ];
     }
 }

@@ -20,6 +20,9 @@ class OrderMarsRoverService
             elseif ($instruction === Instruction::Left) {
                 $this->position = $this->position->left();
             }
+            elseif ($instruction === Instruction::Right) {
+                $this->position = $this->position->right();
+            }
         }
     }
 

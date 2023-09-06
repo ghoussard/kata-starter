@@ -6,4 +6,5 @@ enum Instruction
 {
     case Move;
     case Left;
+    case Right;
 }

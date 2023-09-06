@@ -32,4 +32,20 @@ class Position
             $direction
         );
     }
+
+    public function right(): Position
+    {
+        $direction = match ($this->direction) {
+            Cardinal::North => Cardinal::East,
+            Cardinal::East => Cardinal::South,
+            Cardinal::South => Cardinal::West,
+            Cardinal::West => Cardinal::North,
+        };
+
+        return new self(
+            $this->x,
+            $this->y,
+            $direction
+        );
+    }
 }
