@@ -5,4 +5,5 @@ namespace KataStarter;
 enum Instruction
 {
     case Move;
+    case Left;
 }
