@@ -1,6 +1,6 @@
 <?php
 
-namespace KataStarter\Test;
+namespace KataStarter\Test\AlmostHidden;
 
 use KataStarter\Cardinal;
 use KataStarter\Instruction;
