@@ -2,7 +2,7 @@
 
 namespace KataStarter;
 
-class Position
+class Position implements \JsonSerializable
 {
     public function __construct(private int $x, private int $y, private Cardinal $direction)
     {
@@ -59,5 +59,19 @@ class Position
             $this->y,
             $direction
         );
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'x' => $this->x,
+            'y' => $this->y,
+            'direction' => $this->direction->value,
+        ];
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('%d %d %s', $this->x, $this->y, $this->direction->value);
     }
 }

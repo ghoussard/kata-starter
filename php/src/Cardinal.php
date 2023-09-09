@@ -2,10 +2,10 @@
 
 namespace KataStarter;
 
-enum Cardinal
+enum Cardinal: string
 {
-    case North;
-    case West;
-    case South;
-    case East;
+    case North = 'N';
+    case West = 'W';
+    case South = 'S';
+    case East = 'E';
 }

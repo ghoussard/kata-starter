@@ -2,9 +2,9 @@
 
 namespace KataStarter;
 
-enum Instruction
+enum Instruction: string
 {
-    case Move;
-    case Left;
-    case Right;
+    case Move = 'M';
+    case Left = 'L';
+    case Right = 'R';
 }

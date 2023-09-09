@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use KataStarter\OrderMarsRoverCli;
+use KataStarter\OrderMarsRoverService;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\QuestionHelper;
+
+$application = new Application();
+$application->add(new OrderMarsRoverCli(new OrderMarsRoverService()));
+
+$application->run();
