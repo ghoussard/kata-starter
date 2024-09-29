@@ -1,6 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="All tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="thecodingmachine/php:8.2-v4-cli" />
+      </PhpTestInterpreterSettings>
       <envs>
         <env name="PHP_EXTENSION_XDEBUG" value="1" />
       </envs>

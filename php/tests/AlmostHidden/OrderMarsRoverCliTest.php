@@ -2,8 +2,10 @@
 
 namespace KataStarter\Test\AlmostHidden;
 
+use KataStarter\MarsRoverPositionInMemoryRepository;
 use KataStarter\OrderMarsRoverCli;
 use KataStarter\OrderMarsRoverService;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -16,7 +18,9 @@ class OrderMarsRoverCliTest extends TestCase
     {
         parent::setUp();
 
-        $this->command = new OrderMarsRoverCli(new OrderMarsRoverService());
+        $this->command = new OrderMarsRoverCli(new OrderMarsRoverService(
+            new MarsRoverPositionInMemoryRepository()
+        ));
         $this->commandTester = new CommandTester($this->command);
     }
 
@@ -38,8 +42,10 @@ ORDERS;
         $output = $this->commandTester->getDisplay();
         $this->assertStringContainsString('Which orders do you want to send? (CTRL+D to end the input)', $output);
         $this->assertStringContainsString('Orders sent to the rovers...', $output);
-        $this->assertStringContainsString('Rovers in positions:', $output);
-        $this->assertStringContainsString('1 3 N', $output);
-        $this->assertStringContainsString('5 1 E', $output);
+        Assert::assertSame(<<<EOL
+Which orders do you want to send? (CTRL+D to end the input)
+Orders sent to the rovers...
+
+EOL, $output);
     }
 }

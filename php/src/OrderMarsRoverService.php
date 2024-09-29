@@ -4,20 +4,17 @@ namespace KataStarter;
 
 class OrderMarsRoverService
 {
-    /** @var Position[] */
-    private array $positions;
+    public function __construct(
+        private MarsRoverPositionRepositoryInterface $positionRepository,
+    ) {
+    }
 
     public function order(Order ...$orders): void
     {
-        foreach ($orders as $index => $order) {
+        foreach ($orders as $order) {
             $position = $this->followInstructionsFromPosition($order->instructions, $order->initialPosition);
-            $this->positions[$index] = $position;
+            $this->positionRepository->add($position);
         }
-    }
-
-    public function currentPositions(): array
-    {
-        return $this->positions;
     }
 
     /**

@@ -58,12 +58,6 @@ HELP;
 
         $output->writeln('');
         $output->writeln('Orders sent to the rovers...');
-        $output->writeln('');
-        $output->writeln('Rovers in positions:');
-
-        foreach ($this->orderMarsRoverService->currentPositions() as $currentPosition) {
-            $output->writeln($currentPosition);
-        }
 
         return Command::SUCCESS;
     }

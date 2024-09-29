@@ -4,7 +4,7 @@ namespace KataStarter;
 
 use Symfony\Component\Filesystem\Filesystem;
 
-final class MarsRoverPositionJsonRepository
+final class MarsRoverPositionJsonRepository implements MarsRoverPositionRepositoryInterface
 {
     private Filesystem $fs;
 
